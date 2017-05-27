@@ -1,36 +1,32 @@
 #!/usr/bin/env perl
 # (currently foo.dat is ignored, so write anything there)
-# $0 foo.dat foo.wav
+# $0 foo.wav < foo.dat
 # http://soundfile.sapp.org/doc/WaveFormat/
 use strict;
 use warnings;
 use Data::Dumper; { package Data::Dumper; our ($Indent, $Sortkeys, $Terse, $Useqq) = (1)x4 }
 use Math::Trig;    # pi
 
-my $NUM_CHANNELS     = 2;       # 1=mono, 2=stereo, etc
+my $NUM_CHANNELS     = 1;       # 1=mono, 2=stereo, etc
 my $SAMPLE_RATE      = 44100;   # samples per second, Hz
 my $BYTES_PER_SAMPLE = 2;
 
-my ($data_fh, $out_fh) = open_files();
+my ($out_fh) = open_files();
 write_riff_chunk_descriptor($out_fh);
 my $data_chunk_pos = write_fmt_sub_chunk($out_fh);
-write_data_sub_chunk($data_fh, $out_fh);
-fill_in_chunk_sizes($data_fh, $out_fh, $data_chunk_pos);
+write_data_sub_chunk($out_fh);
+fill_in_chunk_sizes($out_fh, $data_chunk_pos);
 
 exit;
 
 sub open_files {
-    die "Usage: $0 input.dat output.wav\n"
-      unless @ARGV == 2;
+    die "Usage: osc.pl 440 1 | $0 output.wav\n"
+      unless @ARGV == 1;
 
-    #open(my $data_fh, '<', $ARGV[0])
-    #  or die("couldn't open data file '$ARGV[0]': $!");
-    my $data_fh;
+    open(my $out_fh, '+>', $ARGV[0])
+      or die("couldn't open output file '$ARGV[0]': $!");
 
-    open(my $out_fh, '+>', $ARGV[1])
-      or die("couldn't open output file '$ARGV[1]': $!");
-
-    return($data_fh, $out_fh);
+    return($out_fh);
 }
 
 sub write_riff_chunk_descriptor {
@@ -66,18 +62,20 @@ sub write_fmt_sub_chunk {
 }
 
 sub write_data_sub_chunk {
-    my ($data_fh, $out_fh) = @_;
+    my ($out_fh) = @_;
 
     print $out_fh "data",                      # Subchunk2ID
                   "????";                      # Subchunk2Size
 
-    # finally, the sound data
-    # not sure what would make sense for $data_fh input generally, yet
-    make_sin($data_fh, $out_fh);
+    # could get data chunk size here
+    my $buf;
+    while (read(STDIN, $buf, 2**12)) {
+        print $out_fh $buf;
+    }
 }
 
 sub fill_in_chunk_sizes {
-    my ($data_fh, $out_fh, $data_chunk_pos) = @_;
+    my ($out_fh, $data_chunk_pos) = @_;
 
     my $file_length = tell($out_fh);   # total file size
 
@@ -90,27 +88,6 @@ sub fill_in_chunk_sizes {
     # RIFF chunk size = size of file excluding ChunkID and ChunkSize
     seek($out_fh, 4, 0);
     print $out_fh pack('V', $file_length - 8);
-}
-
-sub make_sin {
-    my ($data_fh, $out_fh) = @_;
-
-    # http://www.cplusplus.com/forum/beginner/166954/
-    # C4 note with a sine wave
-    my $two_pi        = 2 * pi;
-    my $max_amplitude = 32760;
-    my $frequency     = 261.626;  # middle C
-    my $seconds       = 2.5;  # time
-
-    my $num_samples = $SAMPLE_RATE * $seconds;  # total number of samples
-    foreach my $n (0 .. $num_samples - 1) {
-        my $amplitude = $n / $num_samples * $max_amplitude;
-        my $value    = sin( ($two_pi * $n * $frequency) / $SAMPLE_RATE );
-
-        # 2 channels, but not sure why they complement each other
-        print $out_fh pack('v', int($amplitude * $value)),
-                      pack('v', int(($max_amplitude - $amplitude) * $value));
-    }
 }
 
 __END__
