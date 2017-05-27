@@ -42,10 +42,8 @@ sub print_sin {
 
     my $num_samples = $SAMPLE_RATE * $seconds;  # total number of samples
     foreach my $n (0 .. $num_samples - 1) {
-        my $amplitude = $n / $num_samples * $MAX_AMPLITUDE;
-        my $value     = sin( (2 * pi * $n * $frequency) / $SAMPLE_RATE );
-
-        print pack('v', int($amplitude * $value));
+        my $value = $MAX_AMPLITUDE * sin( (2 * pi * $n * $frequency) / $SAMPLE_RATE );
+        print pack('v', int($value));
     }
 }
 
@@ -54,7 +52,8 @@ sub print_sawtooth {
 
     my $num_samples = $SAMPLE_RATE * $seconds;  # total number of samples
     foreach my $n (0 .. $num_samples - 1) {
-
+        my $value = $MAX_AMPLITUDE * 0;
+        print pack('v', int($value));
     }
 }
 
@@ -63,7 +62,8 @@ sub print_triangle {
 
     my $num_samples = $SAMPLE_RATE * $seconds;  # total number of samples
     foreach my $n (0 .. $num_samples - 1) {
-
+        my $value = $MAX_AMPLITUDE * 0;
+        print pack('v', int($value));
     }
 }
 
@@ -72,6 +72,7 @@ sub print_rectangle {
 
     my $num_samples = $SAMPLE_RATE * $seconds;  # total number of samples
     foreach my $n (0 .. $num_samples - 1) {
-
+        my $value = $MAX_AMPLITUDE * 0;
+        print pack('v', int($value));
     }
 }
