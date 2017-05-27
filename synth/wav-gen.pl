@@ -7,9 +7,9 @@ use warnings;
 use Data::Dumper; { package Data::Dumper; our ($Indent, $Sortkeys, $Terse, $Useqq) = (1)x4 }
 use Math::Trig;    # pi
 
-my $NUM_CHANNELS    = 2;       # 1=mono, 2=stereo, etc
-my $SAMPLE_RATE     = 44100;   # samples per second, Hz
-my $BITS_PER_SAMPLE = 16;      # multiple of 8
+my $NUM_CHANNELS     = 2;       # 1=mono, 2=stereo, etc
+my $SAMPLE_RATE      = 44100;   # samples per second, Hz
+my $BYTES_PER_SAMPLE = 2;
 
 my ($data_fh, $out_fh) = open_files();
 write_riff_chunk_descriptor($out_fh);
@@ -44,18 +44,18 @@ sub write_riff_chunk_descriptor {
 sub write_fmt_sub_chunk {
     my ($out_fh) = @_;
 
-    my $byte_rate   = $SAMPLE_RATE * $NUM_CHANNELS * $BITS_PER_SAMPLE / 8;
-    my $block_align = $NUM_CHANNELS * $BITS_PER_SAMPLE / 8;  # size in bytes of integer samples for all channels
+    my $byte_rate   = $SAMPLE_RATE * $NUM_CHANNELS * $BYTES_PER_SAMPLE;
+    my $block_align = $NUM_CHANNELS * $BYTES_PER_SAMPLE;  # size in bytes of integer samples for all channels
 
-    print $out_fh "fmt ",                      # Subchunk1ID
+    print $out_fh "fmt ",                           # Subchunk1ID
                   # these are little-endian; V = 4-byte, v = 2-byte
-                  pack('V', 16),               # Subchunk1Size (16 for PCM)
-                  pack('v', 1),                # AudioFormat   (PCM=1 => linear quantization)
-                  pack('v', $NUM_CHANNELS),    # NumChannels
-                  pack('V', $SAMPLE_RATE),     # SampleRate
-                  pack('V', $byte_rate),       # ByteRate
-                  pack('v', $block_align),     # BlockAlign
-                  pack('v', $BITS_PER_SAMPLE); # BitsPerSample
+                  pack('V', 16),                    # Subchunk1Size (16 for PCM)
+                  pack('v', 1),                     # AudioFormat   (PCM=1 => linear quantization)
+                  pack('v', $NUM_CHANNELS),         # NumChannels
+                  pack('V', $SAMPLE_RATE),          # SampleRate
+                  pack('V', $byte_rate),            # ByteRate
+                  pack('v', $block_align),          # BlockAlign
+                  pack('v', $BYTES_PER_SAMPLE * 8); # BitsPerSample
 
     # if not PCM, there are also:
     # 2 bytes ExtraParamSize
