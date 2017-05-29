@@ -60,3 +60,8 @@ https://ccrma.stanford.edu/~jos/pasp/Extended_Karplus_Strong_Algorithm.html
 
 # have to register ("free"), original karplus-strong article
 https://www.jstor.org/stable/3680062
+
+# "digital waveguide synthesis" seems to be a patented (by Stanford, ccrma site above)
+# but apparently "comb filters" sound the same and exist before that
+https://en.wikipedia.org/wiki/Comb_filter
+# also flanging
