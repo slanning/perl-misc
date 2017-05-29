@@ -41,8 +41,11 @@ foreach my $n (0 .. $num_samples - 1) {
 __END__
 
 ./synth/pluck.pl 440 2 1 | ./synth/wav-gen.pl ~/wav/pluck-440-2-1.wav
-# my favorite so far, though still very "plucky":
 ./synth/pluck.pl 440 2 7 0.999 | ./synth/wav-gen.pl ~/wav/pluck-440-2-7-0.999.wav
+# sick bass sound (
+./synth/pluck.pl 41 2 7 0.99 | ./synth/wav-gen.pl ~/wav/pluck-41-2-7-0.99.wav
+# for some reason (harmonics filtered?) it changes sound the longer it's played
+./synth/pluck.pl 41 5 1 0.99 | ./synth/wav-gen.pl ~/wav/pluck-41-5-1-0.99.wav
 
 https://en.wikipedia.org/wiki/Karplus%E2%80%93Strong_string_synthesis
 http://amid.fish/karplus-strong
