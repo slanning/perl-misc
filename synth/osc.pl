@@ -109,9 +109,9 @@ sub print_rectangle {
 
 __END__
 
-./synth/osc.pl 440 2 sin | ./synth/wav-gen.pl ~/sin-440-2.wav
+./synth/osc.pl 440 2 sin      | ./synth/wav-gen.pl ~/wav/sin-440-2.wav
 ./synth/osc.pl 440 2 sawtooth | ./synth/wav-gen.pl ~/wav/saw-440-2.wav
 ./synth/osc.pl 440 2 triangle | ./synth/wav-gen.pl ~/wav/tri-440-2.wav
-./synth/osc.pl 440 2 noise | ./synth/wav-gen.pl ~/wav/noise-2.wav
-./synth/osc.pl 440 2 square | ./synth/wav-gen.pl ~/wav/square-440-2.wav
-./synth/osc.pl 440 2 rect10 | ./synth/wav-gen.pl ~/wav/rect10-440-2.wav
+./synth/osc.pl 440 2 noise    | ./synth/wav-gen.pl ~/wav/noise-2.wav
+./synth/osc.pl 440 2 square   | ./synth/wav-gen.pl ~/wav/square-440-2.wav
+./synth/osc.pl 440 2 rect10   | ./synth/wav-gen.pl ~/wav/rect10-440-2.wav
