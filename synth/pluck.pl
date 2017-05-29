@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 # Karplus-Strong algorithm to generate a pluck sound
-# $0 freq sec delay
+# $0 freq sec delay decay
 use strict;
 use warnings;
 use Data::Dumper; { package Data::Dumper; our ($Indent, $Sortkeys, $Terse, $Useqq) = (1)x4 }
