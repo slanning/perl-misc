@@ -1,6 +1,4 @@
 #!/usr/bin/env perl
-# (currently foo.dat is ignored, so write anything there)
-# $0 foo.wav < foo.dat
 # ./osc.pl | ./wav-gen.pl foo.wav
 # http://soundfile.sapp.org/doc/WaveFormat/
 use strict;
