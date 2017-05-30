@@ -30,12 +30,9 @@ my @x = map(int(2 * $MAX_AMPLITUDE * (rand(1) - 0.5)), 1 .. $L);
 my $num_samples = $SAMPLE_RATE * $sec;
 foreach my $n (0 .. $num_samples - 1) {
     my $nmod = $n % $L;
-    my $value = int($x[$nmod]);
-    my $n_minus_1 = ($nmod == 0)
-      ? -1
-      : ($nmod - 1);
-    $x[$nmod] = ($x[$nmod] + $decay * $x[$n_minus_1]) / 2;
-    print pack($packfmt, int($value));
+    print pack($packfmt, int($x[$nmod]));
+
+    $x[$nmod] = $decay * ($x[$nmod] + $x[$nmod - 1]) / 2;
 }
 
 __END__
@@ -52,16 +49,17 @@ http://amid.fish/karplus-strong
 http://crypto.stanford.edu/~blynn/sound/karplusstrong.html
 http://cmc.music.columbia.edu/MusicAndComputers/chapter4/04_09.php
 http://blog.csdn.net/YhL_Leo/article/details/48730857
--wavetable synthesis algorithm
--plucked string algorithm
--drum algorithm
+ -wavetable synthesis algorithm
+ -plucked string algorithm
+ -drum algorithm
 https://ccrma.stanford.edu/~jos/pasp/Extended_Karplus_Strong_Algorithm.html
--extended Karplus-Strong algorithm
+ -extended Karplus-Strong algorithm
+https://stackoverflow.com/questions/1918772/explain-this-dsp-notation
+http://www.cs.nuim.ie/~matthewh/VST.html  # a bit simplified but much easier to understand
 
-# have to register ("free"), original karplus-strong article
+# have to register ("free"), original karplus-strong article and extension
 https://www.jstor.org/stable/3680062
+http://www.jstor.org/stable/3680063?seq=1#page_scan_tab_contents
 
-# "digital waveguide synthesis" seems to be a patented (by Stanford, ccrma site above)
-# but apparently "comb filters" sound the same and exist before that
 https://en.wikipedia.org/wiki/Comb_filter
-# also flanging
+(flanging)
