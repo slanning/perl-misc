@@ -24,3 +24,6 @@ I try to keep the Perl without external dependencies
 (otherwise for example there's Audio::SndFile for writing .wav files
 and probably http://search.cpan.org/search?query=audio&mode=module
 and/or http://search.cpan.org/search?query=sound&mode=module )
+
+piano-frequencies.dat is from https://en.wikipedia.org/wiki/Piano_key_frequencies
+(or for the normal 88 keys, the $n key's frequency is 2**(($n-49)/12) * 440 )
