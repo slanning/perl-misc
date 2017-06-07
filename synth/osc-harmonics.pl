@@ -131,6 +131,6 @@ __END__
 ./synth/osc-harmonics.pl 440 2 sin '3:1,2:3,1:7' | ./synth/wav-gen.pl ~/wav/sin-440-2-harmonics3:1,2:3,1:7.wav
 ./synth/osc-harmonics.pl 440 2 square   '3:1,2:4,1:8' | ./synth/wav-gen.pl ~/wav/square-440-2-harmonics3:1,2:4,1:8.wav
 ./synth/osc-harmonics.pl 440 2 rect10   '3:1,2:4,1:8' | ./synth/wav-gen.pl ~/wav/rect10-440-2-harmonics3:1,2:4,1:8.wav
-# not much difference in sawtooth or triangle (I think sawtooth is odd harmonics, so tried even ones, still the same)
+# not much difference in sawtooth or triangle
 ./synth/osc-harmonics.pl 440 2 sawtooth '3:1,2:4,1:8' | ./synth/wav-gen.pl ~/wav/sin-440-2-harmonics3:1,2:4,1:8.wav
 ./synth/osc-harmonics.pl 440 2 triangle '3:1,2:4,1:8' | ./synth/wav-gen.pl ~/wav/tri-440-2-harmonics3:1,2:4,1:8.wav
