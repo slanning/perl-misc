@@ -1,0 +1,79 @@
+# perl -Mstrict -wnE'next if /^$/ or /^#/;my($name,$degrees)=split(/\t/);say"$name,$degrees"' scales.dat
+
+# Name	Degrees	Lower tetrachord	Upper tetrachord	Use of key signature: usual or unusual
+# 15 equal temperament				
+# 16 equal temperament				
+# 17 equal temperament				
+# 19 equal temperament				
+# 21 equal temperament				
+Acoustic	1 2 3 #4 5 6 b7	whole tone	minor	
+Aeolian mode or natural minor	1 2 b3 4 5 b6 b7	minor	Phrygian	Usual
+# Algerian	1 2 b3  #4 5 b6 7 etc.			
+# Alpha				
+Altered	1 b2 b3 b4 b5 b6 b7	diminished	whole tone	
+Augmented	1 b3 3 5 #5 7			
+Bebop dominant	1 2 3 4 5 6 b7 7			
+# Beta				
+Blues	1 b3 4 b5 5 b7			
+# Bohlen–Pierce				
+Chromatic	1 #1 2 #2 3 4 #4 5 #5 6 #6 7		
+# Delta				
+Dorian mode	1 2 b3 4 5 6 b7	minor	minor	Usual
+Double harmonic	1 b2 3 4 5 b6 7	harmonic	harmonic	Unusual
+Enigmatic	1 b2 3 #4 #5 #6 7			Unusual
+# Euler–Fokker genus				
+Flamenco mode	1 b2 3 4 5 b6 7	Phrygian	Phrygian	Unusual
+# Gamma				
+Gypsy	1 2 b3 #4 5 b6 b7	Gypsy	Phrygian	Unusual
+Half diminished	1 2 b3 4 b5 b6 b7	minor	whole tone	
+Harmonic major	1 2 3 4 5 b6 7	major	harmonic	
+Harmonic minor	1 2 b3 4 5 b6 7	minor	harmonic	
+# Harmonic				
+# Hexany				
+Hirajoshi	1 3 #4 5 7			
+Hungarian gypsy	1 2 b3 #4 5 b6 7	Gypsy	harmonic	Unusual
+Hungarian minor	1 2 b3 #4 5 b6 7	Gypsy	harmonic	
+In	1 b2 4 5 b6			
+Insen	1 b2 4 5 b7			
+Ionian mode or major	1 2 3 4 5 6 7	major	major	Usual
+Istrian	1 b2 b3 b4 b5 5			
+Iwato	1 b2 4 b5 b7			
+Locrian mode	1 b2 b3 4 b5 b6 b7	Phrygian	whole tone	Usual
+Lydian augmented	1 2 3 #4 #5 6 7	whole tone	diminished	
+Lydian mode	1 2 3 #4 5 6 7	whole tone	major	Usual
+# Major bebop	1 2 3 4 5 (#5/b6) 6 7			
+Major Locrian	1 2 3 4 b5 b6 b7	major	whole tone	
+Major pentatonic	1 2 3 5 6			Usual
+Melodic minor	1 2 b3 4 5 6 7 8 b7 b6 5 4 b3 2 1	minor	varies	
+Minor pentatonic	1 b3 4 5 b7			Usual
+Mixolydian mode or Adonai malakh mode	1 2 3 4 5 6 b7	major	minor	Usual
+Neapolitan major	1 b2 b3 4 5 6 7	Phrygian	major	Unusual
+Neapolitan minor	1 b2 b3 4 5 b6 7	Phrygian	harmonic	Unusual
+# Non-Pythagorean				
+# Octatonic	1 2 b3 4 b5 b6 6 7<br/>1 b2 b3 3 #4 5 6 b7			
+# Pelog				
+Persian	1 b2 3 4 b5 b6 7	harmonic	unusual	
+Phrygian dominant	1 b2 3 4 5 b6 b7	harmonic	Phrygian	Unusual
+Phrygian mode	1 b2 b3 4 5 b6 b7	Phrygian	Phrygian	Usual
+Prometheus	1 2 3 #4 6 b7			
+# Quarter tone	1 {{music|t}}1 #1 {{music|#t}}1 2 {{music|t}}2 #2 {{music|#t}}2 3 {{music|t}}3 4 {{music|t}}4 #4 {{music|#t}}4 5 {{music|t}}5 #5 {{music|#t}}5 6 {{music|t}}6 #6 {{music|#t}}6 7 {{music|t}}7<br/>{{music|d}}8 7 {{music|d}}7 b7 {{music|db}}7 6 {{music|d}}6 b6 {{music|db}}6 5 {{music|d}}5 b5 {{music|db}}5 4 {{music|d}}4 3 {{music|d}}3 b3 {{music|db}}3 2 {{music|d}}2 b2 {{music|db}}2 1			
+# Scale of harmonics				
+# Slendro				
+Tritone	1 b2 3 b5 5 b7			
+Ukrainian Dorian	1 2 b3 #4 5 6 b7 7	Gypsy	minor	Unusual
+Whole tone	1 2 3 #4 #5 #6			
+Yo	1 b3 4 5 b7			
+
+# Bebop
+# Chord-scale system
+# Heptatonic
+# Jazz
+# List of chord progressions
+# List of chords
+# Interval (music)|List of musical intervals
+# List of pitch intervals
+# Arabian maqam
+# Modes of limited transposition
+# Symmetric
+# Synthetic modes
+# Tetrachord

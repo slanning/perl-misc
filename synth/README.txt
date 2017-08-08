@@ -25,5 +25,7 @@ I try to keep the Perl without external dependencies
 and probably http://search.cpan.org/search?query=audio&mode=module
 and/or http://search.cpan.org/search?query=sound&mode=module )
 
-piano-frequencies.dat is from https://en.wikipedia.org/wiki/Piano_key_frequencies
+piano-frequencies.dat is based on https://en.wikipedia.org/wiki/Piano_key_frequencies
 (or for the normal 88 keys, the $n key's frequency is 2**(($n-49)/12) * 440 )
+
+scales.dat is based on https://en.wikipedia.org/wiki/List_of_musical_scales_and_modes
