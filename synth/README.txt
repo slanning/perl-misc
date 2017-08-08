@@ -29,3 +29,7 @@ piano-frequencies.dat is based on https://en.wikipedia.org/wiki/Piano_key_freque
 (or for the normal 88 keys, the $n key's frequency is 2**(($n-49)/12) * 440 )
 
 scales.dat is based on https://en.wikipedia.org/wiki/List_of_musical_scales_and_modes
+
+
+https://en.wikipedia.org/wiki/List_of_chord_progressions ?
+https://en.wikipedia.org/wiki/List_of_chords ?
