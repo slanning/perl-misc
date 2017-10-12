@@ -30,6 +30,9 @@ piano-frequencies.dat is based on https://en.wikipedia.org/wiki/Piano_key_freque
 
 scales.dat is based on https://en.wikipedia.org/wiki/List_of_musical_scales_and_modes
 
+chords.dat based on https://en.wikibooks.org/wiki/Music_Theory/Complete_List_of_Chord_Patterns
 
 https://en.wikipedia.org/wiki/List_of_chord_progressions ?
 https://en.wikipedia.org/wiki/List_of_chords ?
+http://www.lotusmusic.com/lm_chordprogressions.html
+https://www.youtube.com/watch?time_continue=5&v=1dRA28cdt5c
