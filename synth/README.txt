@@ -36,3 +36,4 @@ https://en.wikipedia.org/wiki/List_of_chord_progressions ?
 https://en.wikipedia.org/wiki/List_of_chords ?
 http://www.lotusmusic.com/lm_chordprogressions.html
 https://www.youtube.com/watch?time_continue=5&v=1dRA28cdt5c
+https://peterburk.github.io/chordProgressions/index.html
