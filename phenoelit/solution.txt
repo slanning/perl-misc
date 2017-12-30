@@ -1,0 +1,492 @@
+[Read README.txt first]
+
+
+
+Goal: figure out and explain how this works:
+
+#!/usr/bin/perl
+sub FuckVBA{y&!-.&,-:&;s+\n++gexe;$fx=~tr
+/$%-|/&'-~/;s*(?!>=~s/%$'/0815/g;map{$_=~
+s&\x256&FFFF&gee$OS!=win;)*join$@,@_,$FtR
+.$_,$fx*exec;}s>(?!print&f(($_=(3x3)."3+3
+3")=~s=3(?![^3]|$)=&f=eg)."\n";sub f{eval
+(@_?$_:"'$&+'x3");})(?<=$_)>),&&%-&*!)%%,
+%%)+*&!(-'(,*,*(.!(.%-'(*')'!%!'++.+&,*(!
+').(!+-.,(+))-!--))&+&!),-,)%)-%!)%*%..+*
+'&!&'%-!&&(-)(-)%%!+(,*%*!'&+%.&-*'-!))%!
+-))&%-->;$fx="{* &(dv'&';\$DrP9&dv)2'&'9{
+A";$FtR=join("",pack("c*",split("[A-z, ~#
+]+",do{($F=q=&&-do&&&!&%*not&%%!('if,%G&&
+,print..!&%,map-+!++!+*!)%!)&eval&'(no('!
+&&,!&&%!&&*DDR&%*!&%(!&&%pack&%&!&%%!('!&
+%qw&%-!&&&if\!do![unless!A\[!&&%reverse[A
+SD]&%(foreach('qq,%!&&+do-'DF.&~s\if\not\
+.(pipe[~+&unpack]&'(=)=~y&!-.&,-:&;$F=~s/
+//g;$F})));;FuckVBA("use Inline C=><<'C';
+");&FuckVBA;#require Linux && 32bit 80x86
+
+
+
+
+
+
+[SPOILERS BELOW - this isn't part of the script above :)]
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+The result: I ran the program, and it printed 'Phenoelit'.
+
+Nutshell explanation: the code calls a Perl subroutine
+FuckVBA which uses Inline::C to create a C function FuckVBA
+that uses integers (like shellcode) to directly
+call sys_write to print "Phenoelit".
+
+Detailed analysis follows.
+
+#!/usr/bin/perl
+
+    Kernel executes "/usr/bin/perl" to interpret the following lines.
+    [Skip past the definition of FuckVBA for now.]
+
+              s>(?!print&f(($_=(3x3)."3+3
+3")=~s=3(?![^3]|$)=&f=eg)."\n";sub f{eval
+(@_?$_:"'$&+'x3");})(?<=$_)>),&&%-&*!)%%,
+%%)+*&!(-'(,*,*(.!(.%-'(*')'!%!'++.+&,*(!
+').(!+-.,(+))-!--))&+&!),-,)%)-%!)%*%..+*
+'&!&'%-!&&(-)(-)%%!+(,*%*!'&+%.&-*'-!))%!
+-))&%-->;
+
+    We have s/(?! ...)/..../. The first part means that no matter
+    what $_ is, we substitute it with the replacement string.
+    So, this is a strange way of doing
+
+    $_ = q/),&&%-&*!)%%,
+%%)+*&!(-'(,*,*(.!(.%-'(*')'!%!'++.+&,*(!
+').(!+-.,(+))-!--))&+&!),-,)%)-%!)%*%..+*
+'&!&'%-!&&(-)(-)%%!+(,*%*!'&+%.&-*'-!))%!
+-))&%--/
+
+    Noted. Continuing, we have
+
+         $fx="{* &(dv'&';\$DrP9&dv)2'&'9{
+A";
+
+    Noted.
+
+   $FtR=join("",
+       pack("c*",
+           split("[A-z, ~#
+]+",
+               do{(
+                   $F = q=&&-do&&&!&%*not&%%!('if,%G&&
+,print..!&%,map-+!++!+*!)%!)&eval&'(no('!
+&&,!&&%!&&*DDR&%*!&%(!&&%pack&%&!&%%!('!&
+%qw&%-!&&&if\!do![unless!A\[!&&%reverse[A
+SD]&%(foreach('qq,%!&&+do-'DF.&~s\if\not\
+.(pipe[~+&unpack]&'(=
+
+    Evil use of '=' as q// delimiters. :)
+
+)=~y&!-.&,-:&;$F=~s/
+//g;
+
+    So $F is the q// string, then that gets transliterated,
+    with characters [!-.] shifted forward by 11.
+    And the "\n"s stripped.
+
+$F}
+
+    Thus ends the do{} block, which returns $F.
+    Determine the value of $F by piping the q//
+    string to `perl -pe'y&!-.&,-:&'` and removing linefeeds
+    (but for displaying, I put linefeeds after the commas):
+
+118do111,105not100,32if70G117print99,107map86,66,65,40,41eval123no32,
+117,110,115DDR105,103,110pack101,100,32,10qw108,111if\,do,
+[unless,A\[,110reverse[ASD]103foreach32qq70,
+116do82DF91~s\if\not\93pipe[~61unpack]123
+
+    When we do the split, all the letters, commas, etc, go away,
+    and the numbers are in a list. Then 'pack' takes the list of
+    numbers, which are ASCII codes, and converts them to characters,
+    which say this:
+
+        void FuckVBA(){ unsigned
+        long FtR[]={
+
+    and this is the string contained in $FtR, which is Inline C code.
+
+)));;
+
+    Parens ending split, pack, and join. Aesthetic semicolon.
+
+FuckVBA("use Inline C=><<'C';
+");
+
+    Call FuckVBA (defined in Perl) with @_=("use Inline...").
+    Now we go to the top of the code to the definition of FuckVBA.
+
+sub FuckVBA{y&!-.&,-:&;
+
+    The subroutine FuckVBA is defined. 'y' is the transliteration
+    operator, aka 'tr'. The delimiter is '&'. The variable $_
+    is implicitly transliterated. (Recall the s/(?!..)// trick was
+    used to initialize $_.) A character range is specified,
+    so [!-.] is transliterated to [,-:]. `man ascii`. It means
+    add 11 the ASCII value of characters [!-.] in $_.
+
+s+\n++gexe;
+
+    Next is the substitution operator, operating on $_. The delimiter
+    is '+'. The option 'g' means replace all "\n" (ASCII 10) with "";
+    that is, make multiple lines into one line. The (sneaky) options
+    'exe' run an eval (no-op), which resets $@ to a null string (used
+    in join inside s/// below). $_ was previously found to be
+
+        $_ = q/),&&%-&*!)%%,
+%%)+*&!(-'(,*,*(.!(.%-'(*')'!%!'++.+&,*(!
+').(!+-.,(+))-!--))&+&!),-,)%)-%!)%*%..+*
+'&!&'%-!&&(-)(-)%%!+(,*%*!'&+%.&-*'-!))%!
+-))&%--/
+
+        thus it becomes a list of integers:
+
+     $_ = "47110815,4007004651,3823757539,3908235242,0,266961753,
+2493,689736448,8844161,478740480,4050996521,1208,1138438400,
+637505,2160918528,440,8441088"
+
+
+$fx=~tr/$%-|/&'-~/;
+
+    The variable $fx is transliterated. The 'tr' operands are evaluated
+    at compile time, so $% isn't a variable. It's a funny way to add 2
+    to the ASCII value of characters [$-|] in $fx. Previously we
+    saw that
+
+        $fx="{* &(dv'&';\$DrP9&dv)2'&'9{
+A";
+
+    and when we pass it through the tr///, it becomes
+
+        $fx="}, (*fx)()=&FtR;(fx+4)();}
+C";
+
+    which is some C code with the trailing 'C' to end
+    an Inline C string.
+
+
+s*(?!>=~s/%$'/0815/g;map{$_=~
+s&\x256&FFFF&gee$OS!=win;)*join$@,@_,$FtR
+.$_,$fx*exec;
+
+    This time s/// uses '*' for delimters. The 'x' option means
+    use extended regular expressions, in particular (?!...).
+    'ee' means run 'eval' on the replacement expression and
+    evaluate the result as a Perl expression. The 'c' option
+    is bogus so perl ignores it. The same trick is used as
+    before, this just assigns to $_ with the left side being ignored.
+
+    Let's gather up the variables:
+
+    $@ = ''              (note: from s+\n++gexe)
+
+    @_ = ("use Inline C=><<'C';
+")                       (note: from the call to FuckVBA)
+
+    $FtR = "void FuckVBA(){ unsigned
+            long FtR[]={"
+
+     $_ = "47110815,4007004651,3823757539,3908235242,0,266961753,
+2493,689736448,8844161,478740480,4050996521,1208,1138438400,
+637505,2160918528,440,8441088"
+
+    $fx = "}, (*fx)()=&FtR;(fx+4)();}
+C";
+
+    Those get joined and evalled in the s///exe:
+
+    $_ = "use Inline C=><<'C';
+          void FuckVBA(){ unsigned
+          long FtR[]={
+          47110815,4007004651,3823757539,3908235242,0,266961753,
+          2493,689736448,8844161,478740480,4050996521,1208,1138438400,
+          637505,2160918528,440,8441088
+          }, (*fx)()=&FtR;(fx+4)();}
+          C"
+
+             }
+
+    This ends the FuckVBA subroutine definition.
+    Continuing after the call FuckVBA("Inline..."), we have
+
+&FuckVBA;
+
+    So, we call FuckVBA again (passing the current @_
+    as the subroutine's @_, but it doesn't matter).
+    Now FuckVBA is C code, though!
+
+    (*fx)()=&FtR declares that 'fx' is a pointer to a "function"
+    with address FtR. Then (fx+4)() is a function call starting
+    at 0 in the array. Now some gdb action.
+
+    /* ftr.c */
+    void FuckVBA(){
+        unsigned long
+            FtR[]={
+                47110815,4007004651,3823757539,3908235242,0,266961753,
+                2493,689736448,8844161,478740480,4050996521,1208,1138438400,
+                637505,2160918528,440,8441088
+            }, (*fx)()=&FtR;
+            (fx+4)();
+    }
+    int main() {
+        FuckVBA();
+    return 0;
+    }
+
+    $ gcc -g -o ftr ftr.c
+    $ gdb -q ftr
+    (gdb) disass FuckVBA
+Dump of assembler code for function FuckVBA:
+0x8048410 <FuckVBA>:    push   %ebp
+0x8048411 <FuckVBA+1>:    mov    %esp,%ebp
+0x8048413 <FuckVBA+3>:    push   %edi
+0x8048414 <FuckVBA+4>:    push   %esi
+0x8048415 <FuckVBA+5>:    sub    $0x60,%esp
+0x8048418 <FuckVBA+8>:    lea    0xffffffa8(%ebp),%edi
+0x804841b <FuckVBA+11>:    mov    $0x8049508,%esi
+0x8048420 <FuckVBA+16>:    cld   
+0x8048421 <FuckVBA+17>:    mov    $0x44,%eax
+0x8048426 <FuckVBA+22>:    mov    %eax,%ecx
+0x8048428 <FuckVBA+24>:    shr    $0x2,%ecx
+0x804842b <FuckVBA+27>:    repz movsl %ds:(%esi),%es:(%edi)
+0x804842d <FuckVBA+29>:    lea    0xffffffa8(%ebp),%eax
+0x8048430 <FuckVBA+32>:    mov    %eax,0xffffffa4(%ebp)
+0x8048433 <FuckVBA+35>:    mov    0xffffffa4(%ebp),%eax
+0x8048436 <FuckVBA+38>:    add    $0x4,%eax
+0x8048439 <FuckVBA+41>:    call   *%eax            ; I set a break here
+0x804843b <FuckVBA+43>:    add    $0x60,%esp
+0x804843e <FuckVBA+46>:    pop    %esi
+0x804843f <FuckVBA+47>:    pop    %edi
+0x8048440 <FuckVBA+48>:    pop    %ebp
+0x8048441 <FuckVBA+49>:    ret   
+End of assembler dump.
+(gdb) break *FuckVBA+41
+Breakpoint 1 at 0x8048439: file ftr.c, line 7.
+(gdb) run
+Starting program: /home/me/ftr
+Breakpoint 1, 0x08048439 in FuckVBA () at ftr.c:7
+(gdb) p *$eax
+$2 = -287962645
+(gdb) x/16i
+0xbffff988:    jecxz  0xbffff972
+0xbffff98a:    jmp    0xb2efe472
+0xbffff98f:    call   0xbffff994
+0xbffff994:    pop    %ecx     ; shellcode trick to get address
+0xbffff995:    sub    $0xf,%ecx
+0xbffff998:    mov    $0x9,%ebp
+0xbffff99d:    mov    (%ecx,%ebp,1),%ebx  ; loop here 9 times
+0xbffff9a0:    xor    $0x86,%ebx      ; 10000110  just for encoding??
+0xbffff9a6:    mov    %ebx,(%ecx,%ebp,1)
+0xbffff9a9:    dec    %ebp
+0xbffff9aa:    jne    0xbffff99d
+0xbffff9ac:    mov    $0x4,%eax         ; 4 = sys_write
+0xbffff9b1:    xor    %ebx,%ebx         ; ebx=1 => fd = STDOUT
+0xbffff9b3:    inc    %ebx
+0xbffff9b4:    inc    %ecx              ; ptr to buffer with "Phenoelit"
+0xbffff9b5:    mov    $0x9,%edx         ; num bytes to write
+(gdb) x/4i
+0xbffff9ba:    int    $0x80             ; syscall
+0xbffff9bc:    mov    $0x1,%eax         ; sys_exit
+0xbffff9c1:    int    $0x80             ; syscall
+0xbffff9c3:    add    %al,(%eax)
+(gdb)
+
+    We can see why this comment:
+
+#require Linux && 32bit 80x86
+
+    because it directly calls sys_write (and sys_exit)
+    using Linux software interrupt 0x80.
+
+Whew. :)
